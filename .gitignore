@@ -1,5 +1,4 @@
 .erlang.mk
-erlang.mk
 _rel
 deps
 ebin
