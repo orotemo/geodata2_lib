@@ -12,7 +12,7 @@ This project only includes the necessary files to perform the following:
 {ok, Result} = geodata2_lib:lookup(Data, <<"123.34.12.32">>),
 
 % now we can ask for specific results using deep map search:
-geodata2_utils:map_search([<<"city">>, <<"names">>, <<"en">>], R)..
+geodata2_utils:map_search([<<"city">>, <<"names">>, <<"en">>], Result).
 
 % it will return the result or undefined atom.
 ```
