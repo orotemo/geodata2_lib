@@ -1,6 +1,9 @@
 -module(geodata2_lib).
 
--export([load/1, lookup/2]).
+-include("geodata2.hrl").
+-define(GREG_EPOCH, 62167219200).
+
+-export([load/1, lookup/2, db_age/1]).
 
 load(Path) ->
   case read(Path) of
@@ -23,6 +26,10 @@ lookup({Meta, Data}, [W1, W2, W3, W4]) ->
     Else -> Else
   end.
 
+db_age({Meta, _Data}) ->
+   erlang:system_time(seconds) -
+   calendar:datetime_to_gregorian_seconds(Meta#mmdbmeta.timestamp) +
+   ?GREG_EPOCH.
 
 %% internal
 
