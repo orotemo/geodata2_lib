@@ -14,12 +14,13 @@ load(Path) ->
   end.
 
 lookup(OpaqueData, IP) when is_binary(IP) ->
-  Parts = binary:split(IP, <<".">>, [ global ]),
-  Numeric = [ list_to_integer(binary_to_list(Part)) || Part <- Parts ],
-  lookup(OpaqueData, Numeric);
+  case inet:parse_address(IP) of
+    {ok, Parsed} -> lookup(OpaqueData, Parsed);
+    Else -> Else
+  end;
 
-lookup({Meta, Data}, [W1, W2, W3, W4]) ->
-  {ok, Bits, Version} = geodata2_ip:make_ip({W1, W2, W3, W4}),
+lookup({Meta, Data}, Parsed) ->
+  {ok, Bits, Version} = geodata2_ip:make_ip(Parsed),
 
   case geodata2_format:lookup(Meta, Data, Bits, Version) of
     {ok, Res} -> {ok, mapify(Res)};
