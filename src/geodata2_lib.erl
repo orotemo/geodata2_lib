@@ -14,7 +14,7 @@ load(Path) ->
   end.
 
 lookup(OpaqueData, IP) when is_binary(IP) ->
-  case inet:parse_address(IP) of
+  case inet:parse_address(binary_to_list(IP)) of
     {ok, Parsed} -> lookup(OpaqueData, Parsed);
     Else -> Else
   end;
