@@ -1,0 +1,8 @@
+{application, geodata2_lib, [
+	{description, "parsing and retrieval of maxmind2 database records"},
+	{vsn, "0.1.0"},
+	{modules, ['geodata2_format','geodata2_ip','geodata2_lib','geodata2_utils']},
+	{registered, []},
+	{applications, [kernel,stdlib]},
+	{env, []}
+]}.
